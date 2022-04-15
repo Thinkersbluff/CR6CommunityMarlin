@@ -20,7 +20,7 @@ Acquiring the board may, however, be problematic, now that it is out of producti
 
 ### Development and compile-it-yourself
 
-There are several example configurations available for convenience. You can find them in the [`config`](./config) directory. Copy the files from the rioght directory to the root of the repository and you can directly build them if you have the Platform.io plugin installed in Visual Studio code. You will need to set the Platform.io environment to the environment in the file `platformio-environment.txt`.
+There are several example configurations available for convenience. You can find them in the [`config`](./config) directory. Copy the files from the right directory to the root of the repository and you can directly build them if you have the Platform.io plugin installed in Visual Studio code. You will need to set the Platform.io environment to the environment in the file `platformio-environment.txt`.
 
 Examples for the following hardware configurations are currently supported by the upstream repository:
 
