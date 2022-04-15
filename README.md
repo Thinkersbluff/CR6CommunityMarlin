@@ -1,18 +1,20 @@
 # Community firmware for the Creality CR-6 3D printer
 
-**This branch is for the Creality CR-6 SE with stock v4.5.2 motherboard and the stock display.**
+**The extui branch is configured for the Creality CR-6 SE with stock v4.5.2 motherboard and the stock display.**
 
 _For other configurations for the Creality CR-6 printer (like BigTreeTech SKR board and optional BTT TFT v3.0 display - please check the [branches and development section](#development-and-compile-it-yourself) section below._
 
 ## Downloads
 
-Please find official releases in the [Releases section](https://github.com/CR6Community/Marlin/releases). Take the release which belongs to the particular touch screen firmware you are going to flash. Please read the release notes *carefully* - it contains all the instructions you need.
+Please find official releases of this firmware in the [Releases section](https://github.com/CR6Community/Marlin/releases). 
+Download the release which belongs to the particular touch screen and main board combination you are going to flash. 
+Please read the release notes *carefully* - it contains all the instructions you need.
 
 Ensure you take the right assets: the `firmware[suffix].bin`. You should not download the `Source code` archive if you are downloading with the purpose of directly flashing your printer.
 
 *Support for the [BTT SKR board](https://damsteen.nl/blog/2020/11/25/how-to-btt-skr-cr6-installation) is available.*
 
-*At least one CF Release 6 user has confirmed that the v4.5.3 firmware configuration also supports the Creality v1.1.03 (ERA) board.*
+*All CF Release 6.1 users have confirmed that the v4.5.3 firmware configuration also supports the Creality v1.1.0.3 (ERA) board.*
 
 ### Development and compile-it-yourself
 
@@ -22,7 +24,7 @@ Examples for the following hardware configurations are currently available:
 
 - Creality stock TFT with:
    - Creality v4.5.2 motherboard (CR-6 SE)
-   - Creality v4.5.3 motherboard (CR-6 SE and CR-6 MAX)
+   - Creality v4.5.3 motherboard (CR-6 SE and CR-6 MAX) - also supports CR-ERA 1.1.0.3
    - BigTreeTech SKR CR-6 (CR-6 SE)
 - BigTreeTech SKR CR-6 with BigTreeTech TFT v3.0
 
