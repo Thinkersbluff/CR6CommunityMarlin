@@ -69,7 +69,7 @@ void MeshValidationHandler::Start() {
     // Home X and Y so we droop at the side of the bed.
     // G26 with temperature and set for full bed, full pattern, retract 4mm, prime 5mm
     char gcodeBuffer[128] = {0};
-    sprintf_P(gcodeBuffer, PSTR("G90\nG0 X0\nG26 B%d H%d R Q%d P2 X%d Y%d"), bed_temperature, nozzle_temperature, int(G26_RETRACT_MULTIPLIER), X_BED_SIZE / 2, Y_BED_SIZE / 2);
+    sprintf_P(gcodeBuffer, PSTR("G90\nG0 X0\nG26 B%d H%d R Q%d P15 X%d Y%d"), bed_temperature, nozzle_temperature, int(G26_RETRACT_MULTIPLIER), X_BED_SIZE / 2, Y_BED_SIZE / 2);
     queue.inject(gcodeBuffer);
     queue.advance();
 
@@ -77,7 +77,7 @@ void MeshValidationHandler::Start() {
     prev_feedrate = ExtUI::getFeedrate_mm_s();
     ExtUI::setFeedrate_mm_s(MESH_VALIDATION_PATTERN_FEEDRATE);
 
-    SetStatusMessage("Starting...");
+    SetStatusMessage("Starting. Prepare tweezers...");
 }
 
 void MeshValidationHandler::Cancel() {
