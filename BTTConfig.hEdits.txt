@@ -1,0 +1,7 @@
+//1. #define HEATER_0_MAXTEMP 375 //(was 275)
+//2. #define EXTRUDE_MINTEMP 185 //(was 170)
+//3. #define DEFAULT_AXIS_STEPS_PER_UNIT   {  80, 160, 400, 663}
+//4. #define PROBE_ONCE            //(was disabled) Probe only once - useful to improve direct drive reliability 
+//5. //#define MULTIPLE_PROBING 2 (was enabled)
+//6. #define Z_PROBE_LOW_POINT          -1 // (was -2) Farthest distance below the trigger-point to go before stopping
+//7. #define PROBING_BED_TEMP     55 // (was 50)

@@ -37,6 +37,18 @@
  */
 #define CONFIGURATION_H_VERSION 02000901
 
+//TB's edits: 
+//1. #define HEATER_0_MAXTEMP 375 //(was 275)
+//2. #define EXTRUDE_MINTEMP 185 //(was 170)
+//3. #define DEFAULT_AXIS_STEPS_PER_UNIT   {  80, 160, 400, 663}
+//4. #define PROBE_ONCE            //(was disabled) Probe only once - useful to improve direct drive reliability 
+//5. //#define MULTIPLE_PROBING 2 (was enabled)
+//6. #define Z_PROBE_LOW_POINT          -1 // (was -2) Farthest distance below the trigger-point to go before stopping
+//7. #define PROBING_BED_TEMP     55 // (was 50)
+//8. #define LEVELING_BED_TEMP     55 //(was 50)
+//9. #define PREHEAT_1_TEMP_HOTEND 205 //(was 200)
+//10. #define PREHEAT_2_TEMP_HOTEND 235 //(was 240)
+//11. #define NOZZLE_CLEAN_MIN_TEMP 185 (was 170)
 //===========================================================================
 //============================= Getting Started =============================
 //===========================================================================
@@ -566,7 +578,7 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 275
+#define HEATER_0_MAXTEMP 375 //(was 275)
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
@@ -721,7 +733,7 @@
  * *** IT IS HIGHLY RECOMMENDED TO LEAVE THIS OPTION ENABLED! ***
  */
 #define PREVENT_COLD_EXTRUSION
-#define EXTRUDE_MINTEMP 170
+#define EXTRUDE_MINTEMP 185 //(was 170)
 
 /**
  * Prevent a single extrusion longer than EXTRUDE_MAXLENGTH.
@@ -924,7 +936,7 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {  80, 80, 400, 95}
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {  80, 160, 400, 663}
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1209,7 +1221,7 @@
  */
 #define PROBE_TARE
 #if ENABLED(PROBE_TARE)
-  //#define PROBE_ONCE            // Probe only once - useful to improve direct drive reliability
+  #define PROBE_ONCE            // Probe only once - useful to improve direct drive reliability
   #define PROBE_TARE_TIME  250    // (ms) Time to hold tare pin
   #define PROBE_TARE_DELAY 250    // (ms) Delay after tare before
   #define PROBE_TARE_STATE LOW   // State to write pin for tare
@@ -1230,7 +1242,7 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-#define MULTIPLE_PROBING 2
+//#define MULTIPLE_PROBING 2
 //#define EXTRA_PROBING    1
 
 /**
@@ -1252,7 +1264,7 @@
 #define Z_CLEARANCE_MULTI_PROBE     2 // Z Clearance between multiple probes
 //#define Z_AFTER_PROBING           5 // Z position after probing is done
 
-#define Z_PROBE_LOW_POINT          -2 // Farthest distance below the trigger-point to go before stopping
+#define Z_PROBE_LOW_POINT          -1 // (was -2) Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
 #define Z_PROBE_OFFSET_RANGE_MIN -10
@@ -1288,7 +1300,7 @@
 #define PREHEAT_BEFORE_PROBING
 #if ENABLED(PREHEAT_BEFORE_PROBING)
   #define PROBING_NOZZLE_TEMP 145   // (°C) Only applies to E0 at this time
-  #define PROBING_BED_TEMP     50
+  #define PROBING_BED_TEMP     55 // (was 50)
 #endif
 
 // For Inverting Stepper Enable Pins (Active Low) use 0, Non Inverting (Active High) use 1
@@ -1548,7 +1560,7 @@
 //#define PREHEAT_BEFORE_LEVELING
 #if ENABLED(PREHEAT_BEFORE_LEVELING)
   #define LEVELING_NOZZLE_TEMP 145   // (°C) Only applies to E0 at this time
-  #define LEVELING_BED_TEMP     50
+  #define LEVELING_BED_TEMP     55 //(was 50)
 #endif
 
 /**
@@ -1848,12 +1860,12 @@
 
 // Preheat Constants
 #define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 200
+#define PREHEAT_1_TEMP_HOTEND 205 //(was 200)
 #define PREHEAT_1_TEMP_BED     60
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
 #define PREHEAT_2_LABEL       "PETG"
-#define PREHEAT_2_TEMP_HOTEND 240
+#define PREHEAT_2_TEMP_HOTEND 235 //(was 240)
 #define PREHEAT_2_TEMP_BED    85
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
 
@@ -1948,7 +1960,7 @@
   //#define NOZZLE_CLEAN_NO_Y
 
   // Require a minimum hotend temperature for cleaning
-  #define NOZZLE_CLEAN_MIN_TEMP 170
+  #define NOZZLE_CLEAN_MIN_TEMP 185 (was 170)
   //#define NOZZLE_CLEAN_HEATUP       // Heat up the nozzle instead of skipping wipe
 
   // Explicit wipe G-code script applies to a G12 with no arguments.
