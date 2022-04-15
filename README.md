@@ -20,7 +20,7 @@ Ensure you take the right assets: the `firmware[suffix].bin`. You should not dow
 
 There are several example configurations available for convenience. You can find them in the [`config`](./config) directory. Copy the files from the rioght directory to the root of the repository and you can directly build them if you have the Platform.io plugin installed in Visual Studio code. You will need to set the Platform.io environment to the environment in the file `platformio-environment.txt`.
 
-Examples for the following hardware configurations are currently available:
+Examples for the following hardware configurations are currently supported by the upstream repository:
 
 - Creality stock TFT with:
    - Creality v4.5.2 motherboard (CR-6 SE)
@@ -45,8 +45,7 @@ Original source code tracking:
 
 This fork of Marlin is meant for:
 
-- Providing up to date and stable Marlin for the CR-6 SE native and [BTT SKR CR6](https://damsteen.nl/blog/2020/11/25/how-to-btt-skr-cr6-installation) motherboard
-- [Expanding the features](https://github.com/CR6Community/CR-6-touchscreen) of the limited Creality CR-6 stock touch screen
+- Providing up to date and stable Marlin for the CR-6 SE with stock TFT and [BTT SKR CR6](https://damsteen.nl/blog/2020/11/25/how-to-btt-skr-cr6-installation) motherboard
 
 Once upstream Marlin supports the strain gauge, [currently being whipped into shape in this PR @Sebazzz has submitted](https://github.com/MarlinFirmware/Marlin/pull/19958), the future of this project will probably be:
 
@@ -60,7 +59,7 @@ Get in touch with the developers! We [have our own Discord server](https://disco
 
 The following CR-6 communities exist:
 
-- [Facebook independend CR-6 community](https://www.facebook.com/groups/cr6community)
+- [Facebook independent CR-6 community](https://www.facebook.com/groups/cr6community)
 - [Reddit /r/CR6](https://www.reddit.com/r/CR6/)
 
 Communities hosted by Creality:
