@@ -7,7 +7,7 @@
 * 0.9 degree stepping motor on Y-Axis
 
 
-_For other configurations for the Creality CR-6 printer (like BigTreeTech SKR board and optional BTT TFT v3.0 display - please check the [branches and development](#development-and-compile-it-yourself) section below._
+_For other configurations for the Creality CR-6 printer (like BigTreeTech SKR board and optional BTT TFT v3.0 display - please check the [Development and compile-it-yourself](#development-and-compile-it-yourself) section below._
 
 ## Downloads
 
