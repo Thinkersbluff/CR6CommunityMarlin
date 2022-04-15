@@ -1,4 +1,4 @@
-# Community firmware for the Creality CR-6 3D printer
+# CR6 Community Firmware Customized for Thinkersbluff's CR6-SE 
 
 **This extui branch is configured for the Creality CR-6 SE with stock TFT plus the following modifications:.**
 * Converted to Direct-Drive
