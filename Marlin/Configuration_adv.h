@@ -31,7 +31,9 @@
  * Basic settings can be found in Configuration.h
  */
 #define CONFIGURATION_ADV_H_VERSION 02000901
-
+//TB's Edits
+//1. #define SHOW_TEMP_ADC_VALUES //(Was disabled)
+//2. #define SQUARE_WAVE_STEPPING //(Was disabled)
 //===========================================================================
 //============================= Thermal Settings ============================
 //===========================================================================
@@ -408,7 +410,7 @@
 
 // Show Temperature ADC value
 // Enable for M105 to include ADC values read from temperature sensors.
-//#define SHOW_TEMP_ADC_VALUES
+#define SHOW_TEMP_ADC_VALUES
 
 /**
  * High Temperature Thermistor Support
@@ -2950,7 +2952,7 @@
    * Beta feature!
    * Create a 50/50 square wave step pulse optimal for stepper drivers.
    */
-  //#define SQUARE_WAVE_STEPPING
+  #define SQUARE_WAVE_STEPPING
 
   /**
    * Enable M122 debugging command for TMC stepper drivers.
