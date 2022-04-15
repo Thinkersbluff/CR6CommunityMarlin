@@ -15,7 +15,7 @@ CAUTION: Anyone downloading this customized version of the community firmware do
 
 Please find official releases of the upstream Community Firmware in the [Releases section](https://github.com/CR6Community/Marlin/releases). 
 
-*Support for the BTT SKR board is available[here](https://damsteen.nl/blog/2020/11/25/how-to-btt-skr-cr6-installation).*
+*Support for the BTT SKR board is available[here ](https://damsteen.nl/blog/2020/11/25/how-to-btt-skr-cr6-installation).*
 Acquiring the board may, however, be problematic, now that it is out of production.
 
 ### Development and compile-it-yourself
