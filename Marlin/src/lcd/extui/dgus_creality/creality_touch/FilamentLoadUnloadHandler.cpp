@@ -85,7 +85,7 @@ void FilamentLoadUnloadHandler::ChangeFilamentWithTemperature(PGM_P command) {
     }
 
     // Inject load filament command
-    SetStatusMessage(PSTR("Filament load/unload..."));
+    SetStatusMessage(PSTR("Starting Filament load/unload..."));
 
     char cmd[64];
     sprintf_P(cmd, command, length);
@@ -96,7 +96,7 @@ void FilamentLoadUnloadHandler::ChangeFilamentWithTemperature(PGM_P command) {
     SERIAL_ECHOPGM_P("- done");
 
     if (ScreenHandler.Settings.display_sound) ScreenHandler.Buzzer(500, 100);
-    SetStatusMessage(PSTR("Filament load/unload complete"));
+    SetStatusMessage(PSTR("Load/unload complete"));
 }
 
 void FilamentLoadUnloadHandler::SetStatusMessage(PGM_P statusMessage) {
