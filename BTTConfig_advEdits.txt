@@ -1,2 +1,0 @@
-//1. #define SHOW_TEMP_ADC_VALUES //(Was disabled)
-//2. #define SQUARE_WAVE_STEPPING //(Was disabled)
