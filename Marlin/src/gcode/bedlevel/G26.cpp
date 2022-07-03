@@ -271,7 +271,7 @@ void retract_filament(const xyz_pos_t &where) {
 // TODO: Parameterize the Z lift with a define
 void retract_lift_move(const xyz_pos_t &s) {
   retract_filament(destination);
-  move_to(current_position.x, current_position.y, current_position.z + 0.5f, 0.0);  // Z lift to minimize scraping
+  move_to(current_position.x, current_position.y, current_position.z + 0.5f, 0.0);  // Z lift to minimize scraping (lift was 0.5f-spj)
   move_to(s.x, s.y, s.z + 0.5f, 0.0);  // Get to the starting point with no extrusion while lifted
 }
 
