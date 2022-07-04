@@ -152,6 +152,7 @@ void bilinear_bed_leveling::extrapolate_unprobed_bed_level() {
     }
 }
 
+
 void bilinear_bed_leveling::print_leveling_grid(const bed_mesh_t* _z_values /*= NULL*/) {
   // print internal grid(s) or just the one passed as a parameter
   SERIAL_ECHOLNPGM("Bilinear Leveling Grid:");
@@ -259,13 +260,11 @@ void bilinear_bed_leveling::print_leveling_grid(const bed_mesh_t* _z_values /*= 
   }
 #endif // ABL_BILINEAR_SUBDIVISION
 
-
 // Refresh after other values have been updated
 void bilinear_bed_leveling::refresh_bed_level() {
   TERN_(ABL_BILINEAR_SUBDIVISION, bed_level_virt_interpolate());
   cached_rel.x = cached_rel.y = -999.999;
   cached_g.x = cached_g.y = -99;
-}
 
 #if ENABLED(ABL_BILINEAR_SUBDIVISION)
   #define ABL_BG_SPACING(A) grid_spacing_virt.A
@@ -282,6 +281,7 @@ void bilinear_bed_leveling::refresh_bed_level() {
 #endif
 
 // Get the Z adjustment for non-linear bed leveling
+
 float bilinear_bed_leveling::get_z_correction(const xy_pos_t &raw) {
   static float z1, d2, z3, d4, L, D;
 
@@ -301,6 +301,7 @@ float bilinear_bed_leveling::get_z_correction(const xy_pos_t &raw) {
 
   if (cached_rel.x != rel.x) {
     cached_rel.x = rel.x;
+
     ratio.x = rel.x * ABL_BG_FACTOR(x);
     const float gx = constrain(FLOOR(ratio.x), 0, ABL_BG_POINTS_X - (FAR_EDGE_OR_BOX));
     ratio.x -= gx;      // Subtract whole to get the ratio within the grid box
@@ -318,6 +319,7 @@ float bilinear_bed_leveling::get_z_correction(const xy_pos_t &raw) {
 
     if (cached_rel.y != rel.y) {
       cached_rel.y = rel.y;
+
       ratio.y = rel.y * ABL_BG_FACTOR(y);
       const float gy = constrain(FLOOR(ratio.y), 0, ABL_BG_POINTS_Y - (FAR_EDGE_OR_BOX));
       ratio.y -= gy;
@@ -333,6 +335,7 @@ float bilinear_bed_leveling::get_z_correction(const xy_pos_t &raw) {
 
     if (cached_g != thisg) {
       cached_g = thisg;
+
       // Z at the box corners
       z1 = ABL_BG_GRID(thisg.x, thisg.y);       // left-front
       d2 = ABL_BG_GRID(thisg.x, nextg.y) - z1;  // left-back (delta)
