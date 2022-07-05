@@ -683,7 +683,6 @@ G29_TYPE GcodeSuite::G29() {
 
           #endif
 
-          abl.reenable = false;
           idle_no_sleep();
 
         } // inner
@@ -872,7 +871,7 @@ G29_TYPE GcodeSuite::G29() {
 
     #elif ENABLED(AUTO_BED_LEVELING_BILINEAR)
 
-      if (!abl.dryrun) {
+           if (!abl.dryrun || abl.reenable) {
         if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPAIR("G29 uncorrected Z:", current_position.z);
 
         // Unapply the offset because it is going to be immediately applied
