@@ -117,7 +117,8 @@ void LevelingBilinear::set_grid(const xy_pos_t& _grid_spacing, const xy_pos_t& _
  * Fill in the unprobed points (corners of circular print surface)
  * using linear extrapolation, away from the center.
  */
-void LevelingBilinear::extrapolate_unprobed_bed_level() {  #ifdef HALF_IN_X
+void LevelingBilinear::extrapolate_unprobed_bed_level() {
+  #ifdef HALF_IN_X
     constexpr uint8_t ctrx2 = 0, xend = GRID_MAX_POINTS_X - 1;
   #else
     constexpr uint8_t ctrx1 = (GRID_MAX_CELLS_X) / 2, // left-of-center
@@ -438,5 +439,3 @@ float LevelingBilinear::get_z_correction(const xy_pos_t &raw) {
   }
 
 #endif // IS_CARTESIAN && !SEGMENT_LEVELED_MOVES
-
-#endif // AUTO_BED_LEVELING_BILINEAR
