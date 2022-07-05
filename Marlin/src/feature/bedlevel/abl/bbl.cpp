@@ -439,3 +439,5 @@ float LevelingBilinear::get_z_correction(const xy_pos_t &raw) {
   }
 
 #endif // IS_CARTESIAN && !SEGMENT_LEVELED_MOVES
+
+#endif // AUTO_BED_LEVELING_BILINEAR
