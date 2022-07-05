@@ -35,19 +35,19 @@
   #include "../../../lcd/extui/ui_api.h"
 #endif
 
-bilinear_bed_leveling bbl;
+LevelingBilinear bbl;
 
-xy_pos_t bilinear_bed_leveling::grid_spacing,
-         bilinear_bed_leveling::grid_start;
-xy_float_t bilinear_bed_leveling::grid_factor;
-bed_mesh_t bilinear_bed_leveling::z_values;
-xy_pos_t bilinear_bed_leveling::cached_rel;
-xy_int8_t bilinear_bed_leveling::cached_g;
+xy_pos_t LevelingBilinear::grid_spacing,
+         LevelingBilinear::grid_start;
+xy_float_t LevelingBilinear::grid_factor;
+bed_mesh_t LevelingBilinear::z_values;
+xy_pos_t LevelingBilinear::cached_rel;
+xy_int8_t LevelingBilinear::cached_g;
 
 /**
  * Extrapolate a single point from its neighbors
  */
-void bilinear_bed_leveling::extrapolate_one_point(const uint8_t x, const uint8_t y, const int8_t xdir, const int8_t ydir) {
+void LevelingBilinear::extrapolate_one_point(const uint8_t x, const uint8_t y, const int8_t xdir, const int8_t ydir) {
   if (!isnan(z_values[x][y])) return;
   if (DEBUGGING(LEVELING)) {
     DEBUG_ECHOPGM("Extrapolate [");
@@ -97,7 +97,7 @@ void bilinear_bed_leveling::extrapolate_one_point(const uint8_t x, const uint8_t
   #endif
 #endif
 
-void bilinear_bed_leveling::reset() {
+void LevelingBilinear::reset() {
   grid_start.reset();
   grid_spacing.reset();
   GRID_LOOP(x, y) {
@@ -105,18 +105,19 @@ void bilinear_bed_leveling::reset() {
     TERN_(EXTENSIBLE_UI, ExtUI::onMeshUpdate(x, y, 0));
   }
 }
-void bilinear_bed_leveling::set_grid(const xy_pos_t& _grid_spacing, const xy_pos_t& _grid_start) {
+
+void LevelingBilinear::set_grid(const xy_pos_t& _grid_spacing, const xy_pos_t& _grid_start) {
   grid_spacing = _grid_spacing;
   grid_start = _grid_start;
   grid_factor = grid_spacing.reciprocal();
 }
 
+
 /**
  * Fill in the unprobed points (corners of circular print surface)
  * using linear extrapolation, away from the center.
  */
-void bilinear_bed_leveling::extrapolate_unprobed_bed_level() {
-  #ifdef HALF_IN_X
+void LevelingBilinear::extrapolate_unprobed_bed_level() {  #ifdef HALF_IN_X
     constexpr uint8_t ctrx2 = 0, xend = GRID_MAX_POINTS_X - 1;
   #else
     constexpr uint8_t ctrx1 = (GRID_MAX_CELLS_X) / 2, // left-of-center
@@ -153,11 +154,11 @@ void bilinear_bed_leveling::extrapolate_unprobed_bed_level() {
 }
 
 
-void bilinear_bed_leveling::print_leveling_grid(const bed_mesh_t* _z_values /*= NULL*/) {
+void LevelingBilinear::print_leveling_grid(const bed_mesh_t* _z_values /*= NULL*/) {
   // print internal grid(s) or just the one passed as a parameter
   SERIAL_ECHOLNPGM("Bilinear Leveling Grid:");
-  print_2d_array(GRID_MAX_POINTS_X, GRID_MAX_POINTS_Y, 3, _z_values ? *_z_values[0] : z_values[0]);
-  
+   print_2d_array(GRID_MAX_POINTS_X, GRID_MAX_POINTS_Y, 3, _z_values ? *_z_values[0] : z_values[0]);
+
   #if ENABLED(ABL_BILINEAR_SUBDIVISION)
     if (!_z_values) {
       SERIAL_ECHOLNPGM("Subdivided with CATMULL ROM Leveling Grid:");
@@ -170,12 +171,12 @@ void bilinear_bed_leveling::print_leveling_grid(const bed_mesh_t* _z_values /*= 
 
   #define ABL_TEMP_POINTS_X (GRID_MAX_POINTS_X + 2)
   #define ABL_TEMP_POINTS_Y (GRID_MAX_POINTS_Y + 2)
-  float bilinear_bed_leveling::z_values_virt[ABL_GRID_POINTS_VIRT_X][ABL_GRID_POINTS_VIRT_Y];
-  xy_pos_t bilinear_bed_leveling::grid_spacing_virt;
-  xy_float_t bilinear_bed_leveling::grid_factor_virt;
-
+  float LevelingBilinear::z_values_virt[ABL_GRID_POINTS_VIRT_X][ABL_GRID_POINTS_VIRT_Y];
+  xy_pos_t LevelingBilinear::grid_spacing_virt;
+  xy_float_t LevelingBilinear::grid_factor_virt;
+  
   #define LINEAR_EXTRAPOLATION(E, I) ((E) * 2 - (I))
-  float bilinear_bed_leveling::bed_level_virt_coord(const uint8_t x, const uint8_t y) {
+  float LevelingBilinear::bed_level_virt_coord(const uint8_t x, const uint8_t y) {
     uint8_t ep = 0, ip = 1;
     if (x > (GRID_MAX_POINTS_X) + 1 || y > (GRID_MAX_POINTS_Y) + 1) {
       // The requested point requires extrapolating two points beyond the mesh.
@@ -240,7 +241,7 @@ void bilinear_bed_leveling::print_leveling_grid(const bed_mesh_t* _z_values /*= 
     return bed_level_virt_cmr(row, 1, tx);
   }
 
-    void bilinear_bed_leveling::bed_level_virt_interpolate() {
+  void LevelingBilinear::bed_level_virt_interpolate() {
     grid_spacing_virt = grid_spacing / (BILINEAR_SUBDIVISIONS);
     grid_factor_virt = grid_spacing_virt.reciprocal();
       LOOP_L_N(y, GRID_MAX_POINTS_Y)
@@ -260,12 +261,13 @@ void bilinear_bed_leveling::print_leveling_grid(const bed_mesh_t* _z_values /*= 
   }
 #endif // ABL_BILINEAR_SUBDIVISION
 
+
 // Refresh after other values have been updated
-void bilinear_bed_leveling::refresh_bed_level() {
+void LevelingBilinear::refresh_bed_level() {
   TERN_(ABL_BILINEAR_SUBDIVISION, bed_level_virt_interpolate());
   cached_rel.x = cached_rel.y = -999.999;
   cached_g.x = cached_g.y = -99;
-
+}
 #if ENABLED(ABL_BILINEAR_SUBDIVISION)
   #define ABL_BG_SPACING(A) grid_spacing_virt.A
   #define ABL_BG_FACTOR(A)  grid_factor_virt.A
@@ -273,8 +275,8 @@ void bilinear_bed_leveling::refresh_bed_level() {
   #define ABL_BG_POINTS_Y   ABL_GRID_POINTS_VIRT_Y
   #define ABL_BG_GRID(X,Y)  z_values_virt[X][Y]
 #else
-  #define ABL_BG_SPACING(A) bilinear_grid_spacing.A
-  #define ABL_BG_FACTOR(A)  bilinear_grid_factor.A
+  #define ABL_BG_SPACING(A) grid_spacing.A
+  #define ABL_BG_FACTOR(A)  grid_factor.A
   #define ABL_BG_POINTS_X   GRID_MAX_POINTS_X
   #define ABL_BG_POINTS_Y   GRID_MAX_POINTS_Y
   #define ABL_BG_GRID(X,Y)  z_values[X][Y]
@@ -282,7 +284,7 @@ void bilinear_bed_leveling::refresh_bed_level() {
 
 // Get the Z adjustment for non-linear bed leveling
 
-float bilinear_bed_leveling::get_z_correction(const xy_pos_t &raw) {
+float LevelingBilinear::get_z_correction(const xy_pos_t &raw) {
   static float z1, d2, z3, d4, L, D;
 
   static xy_pos_t ratio;
@@ -375,7 +377,7 @@ float bilinear_bed_leveling::get_z_correction(const xy_pos_t &raw) {
    * Prepare a bilinear-leveled linear move on Cartesian,
    * splitting the move where it crosses grid borders.
    */
-    void bilinear_bed_leveling::line_to_destination(const_feedRate_t scaled_fr_mm_s, uint16_t x_splits, uint16_t y_splits) {
+     void LevelingBilinear::line_to_destination(const_feedRate_t scaled_fr_mm_s, uint16_t x_splits, uint16_t y_splits) {
     // Get current and destination cells for this line
     xy_int_t c1 { CELL_INDEX(x, current_position.x), CELL_INDEX(y, current_position.y) },
              c2 { CELL_INDEX(x, destination.x), CELL_INDEX(y, destination.y) };

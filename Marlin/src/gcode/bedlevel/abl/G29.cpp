@@ -303,8 +303,8 @@ G29_TYPE GcodeSuite::G29() {
 
         if (!isnan(rx) && !isnan(ry)) {
           // Get nearest i / j from rx / ry
-          i = (rx - bbl.grid_start.x + 0.5 * abl.gridSpacing.x) / abl.gridSpacing.x;
-          j = (ry - bbl.grid_start.y + 0.5 * abl.gridSpacing.y) / abl.gridSpacing.y;
+          i = (rx - bbl.get_grid_start().x) / bbl.get_grid_spacing().x + 0.5f;
+          j = (ry - bbl.get_grid_start().y) / bbl.get_grid_spacing().y + 0.5f;
           LIMIT(i, 0, (GRID_MAX_POINTS_X) - 1);
           LIMIT(j, 0, (GRID_MAX_POINTS_Y) - 1);
         }
@@ -448,6 +448,9 @@ G29_TYPE GcodeSuite::G29() {
         // Can't re-enable (on error) until the new grid is written
         abl.reenable = false;
       }
+      // Pre-populate local Z values from the stored mesh  
+      TERN_(IS_KINEMATIC, COPY(abl.z_values, Z_VALUES_ARR));
+      
     #endif // AUTO_BED_LEVELING_BILINEAR
 
   } // !g29_in_progress

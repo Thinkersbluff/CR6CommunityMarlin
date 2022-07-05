@@ -23,7 +23,8 @@
 
 #include "../../../inc/MarlinConfigPre.h"
 
-class bilinear_bed_leveling {
+class LevelingBilinear {
+private:
   static xy_pos_t grid_spacing, grid_start;
   static xy_float_t grid_factor;
   static bed_mesh_t z_values;
@@ -35,6 +36,7 @@ class bilinear_bed_leveling {
   #if ENABLED(ABL_BILINEAR_SUBDIVISION)
     #define ABL_GRID_POINTS_VIRT_X (GRID_MAX_CELLS_X * (BILINEAR_SUBDIVISIONS) + 1)
     #define ABL_GRID_POINTS_VIRT_Y (GRID_MAX_CELLS_Y * (BILINEAR_SUBDIVISIONS) + 1)
+
     static float z_values_virt[ABL_GRID_POINTS_VIRT_X][ABL_GRID_POINTS_VIRT_Y];
     static xy_pos_t grid_spacing_virt;
     static xy_float_t grid_factor_virt;
@@ -46,26 +48,25 @@ class bilinear_bed_leveling {
   #endif
 
 public:
-
   static void reset();
   static void set_grid(const xy_pos_t& _grid_spacing, const xy_pos_t& _grid_start);
   static void extrapolate_unprobed_bed_level();
   static void print_leveling_grid(const bed_mesh_t* _z_values = NULL);
   static void refresh_bed_level();
-  static bool has_mesh() {return !!grid_spacing.x;}
-  static bed_mesh_t& get_z_values() {return z_values;}
-  static const xy_pos_t& get_grid_spacing() {return grid_spacing;}
-  static const xy_pos_t& get_grid_start() {return grid_start;}
-  static float get_mesh_x(int16_t i) {return grid_start.x + i * grid_spacing.x;}
-  static float get_mesh_y(int16_t j) {return grid_start.y + j * grid_spacing.y;}
+  static bool has_mesh() { return !!grid_spacing.x; }
+  static bed_mesh_t& get_z_values() { return z_values; }
+  static const xy_pos_t& get_grid_spacing() { return grid_spacing; }
+  static const xy_pos_t& get_grid_start() { return grid_start; }
+  static float get_mesh_x(int16_t i) { return grid_start.x + i * grid_spacing.x; }
+  static float get_mesh_y(int16_t j) { return grid_start.y + j * grid_spacing.y; }
   static float get_z_correction(const xy_pos_t &raw);
-  
+
   #if IS_CARTESIAN && DISABLED(SEGMENT_LEVELED_MOVES)
     static void line_to_destination(const_feedRate_t scaled_fr_mm_s, uint16_t x_splits=0xFFFF, uint16_t y_splits=0xFFFF);
   #endif
 };
 
-extern bilinear_bed_leveling bbl;
+extern LevelingBilinear bbl;
 
 #define _GET_MESH_X(I) bbl.get_mesh_x(I)
 #define _GET_MESH_Y(J) bbl.get_mesh_y(J)
